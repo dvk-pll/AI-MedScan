@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes';
 import { config } from 'dotenv';
 import { logger } from './utils/logger';
+import {connectDatabase} from './config/database';
 
 config();
 
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+connectDatabase();
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI as string, {
